@@ -6,6 +6,6 @@ import (
 )
 
 func TEST(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "TEST")
+	fmt.Fprintln(w, "now you are in User handler")
 }
 
