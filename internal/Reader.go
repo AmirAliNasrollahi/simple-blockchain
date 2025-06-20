@@ -1,10 +1,10 @@
 package internal
 
 import (
-	"fmt"
 	"log"
 	"os"
 	"regexp"
+	"strings"
 )
 
 type ENV struct {
@@ -12,16 +12,29 @@ type ENV struct {
 	ConfValue string
 }
 
-func ReadConf() ENV {
-	var env ENV
+func ReadConf() []ENV {
+	var env []ENV
 	conf, err := os.ReadFile("./configs/.env")
 	if err != nil {
 		log.Fatal("the application can't read the config from .env file")
 	}
-	
-	r, _ := regexp.Compile(`(?s)App.*?=.*?\n`)
-	FoundedConfigs := r.FindAllString(string(conf), -1)
-	fmt.Println(FoundedConfigs)
 
+	configsByLine := strings.Split(string(conf), "\n")
+
+	for _, value := range configsByLine {
+
+		// regex := `(?s)App.*?=.*?\n`
+
+		prettierLine := strings.TrimSpace(value)
+		if strings.HasPrefix(prettierLine, "#") || prettierLine == "" {
+			continue
+		}
+		r, _ := regexp.Compile(`^([A-Za-z_]+)=(.*)$`)
+		FoundedConfig := r.FindStringSubmatch(prettierLine)
+
+		// the Config Format
+		envConfFormat := ENV{ ConfName: FoundedConfig[1], ConfValue: FoundedConfig[2] }
+		env = append(env, envConfFormat)
+	}
 	return env
 }
