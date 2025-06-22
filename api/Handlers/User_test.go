@@ -5,5 +5,8 @@ import (
 )
 
 func testingTestFunc(t testing.T) {
-	println("TEST")
+	// Arrange
+	
+	// Act
+	// Assert
 }

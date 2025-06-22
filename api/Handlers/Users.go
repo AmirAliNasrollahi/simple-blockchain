@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-func TEST(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "now you are in User handler")
+func HelloWorld(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintln(w, "Hello world Bro")
 }
 
