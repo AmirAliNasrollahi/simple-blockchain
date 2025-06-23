@@ -11,7 +11,6 @@ type ENV struct {
 	ConfName  string
 	ConfValue string
 }
-
 func ReadConf() []ENV {
 	var env []ENV
 	conf, err := os.ReadFile("./configs/.env")
@@ -22,9 +21,6 @@ func ReadConf() []ENV {
 	configsByLine := strings.Split(string(conf), "\n")
 
 	for _, value := range configsByLine {
-
-		// regex := `(?s)App.*?=.*?\n`
-
 		prettierLine := strings.TrimSpace(value)
 		if strings.HasPrefix(prettierLine, "#") || prettierLine == "" {
 			continue

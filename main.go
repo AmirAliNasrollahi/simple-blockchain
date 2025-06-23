@@ -3,6 +3,7 @@ package main
 import (
 	"crypto_currency/api/route"
 	"crypto_currency/internal"
+	"crypto_currency/pkg/BlockChain"
 	"fmt"
 	"log"
 	"net/http"
@@ -12,6 +13,8 @@ var Configs []internal.ENV = internal.ReadConf()
 
 func main() {
 
+	_ = BlockChain.InitBlockChain()
+	// set a multiplaxer for if serve many server in other ports
 	mux := route.Routes()	
 
 	addr := Configs[0].ConfValue+":"+Configs[1].ConfValue
@@ -25,5 +28,4 @@ func main() {
 	if err != nil {
 		log.Fatal("we have problem on serving")
 	}
-
 }

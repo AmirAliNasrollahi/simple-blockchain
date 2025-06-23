@@ -6,7 +6,6 @@ import (
 
 func testingTestFunc(t testing.T) {
 	// Arrange
-	
 	// Act
 	// Assert
 }
