@@ -11,6 +11,11 @@ type Trx struct {
 	Geter  string
 	Amount float32
 }
+
+type MemPool struct{
+	Trx []Trx
+}
+
 type Block struct {
 	Timestamp       int64
 	Trx             []Trx
@@ -25,11 +30,13 @@ func InitBlockChain() BlockChain {
 	return BC
 }
 
-// the Blocks in Blockchain is immutable
-// if the new block have created,
-// you cant add new trx to before Blocks
-// its amazing ...
-func (BC *BlockChain) AddBlock() {
+/*
+* the Blocks in Blockchain is immutable
+* if the new block have created,
+* you cant add new trx to before Blocks
+* its amazing ...
+*/
+func (BC *BlockChain) MindBlock() {
 	var block Block
 	if len(BC.Blocks) == 0 {
 		block = Block{
@@ -59,4 +66,15 @@ func (BC *BlockChain) AddBlock() {
 		BeforeBlockHash: string(hasher.Sum(nil)),
 	}
 	BC.Blocks = append(BC.Blocks, block)
+}
+
+/* 
+* every Trx should first go to the Mempool, then
+* the miner check which one is valid and then
+* put out the valid transAction while the size of
+* block going to be smaller than 1MB
+*/
+func AddTrxToMemPool(sender ,geter string, amount float32) {
+	memPool := MemPool{}	
+	memPool.Trx = append(memPool.Trx, Trx{Sender: sender,Geter: geter, Amount: amount})
 }
