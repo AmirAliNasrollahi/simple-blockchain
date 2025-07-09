@@ -11,6 +11,7 @@ func Routes() *http.ServeMux {
 	mux := http.NewServeMux()
 
 	helloWorldWithMiddleWare := middleware.AuthorizationMiddleware(http.HandlerFunc(Handlers.HelloWorld))
+
 	mux.Handle("/", helloWorldWithMiddleWare)
 	return mux
 }
