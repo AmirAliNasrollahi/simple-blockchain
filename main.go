@@ -22,7 +22,7 @@ func main() {
 		Handler: mux,
 	}
 
-	fmt.Println("the first Server is Running ...")
+	fmt.Printf("the first Server is Running on %s ...", addr)
 	err := server.ListenAndServe()
 	if err != nil {
 		log.Fatal("we have problem on serving")

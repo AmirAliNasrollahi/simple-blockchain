@@ -12,7 +12,10 @@ func Routes() *http.ServeMux {
 
 	helloWorldWithMiddleWare := middleware.AuthorizationMiddleware(http.HandlerFunc(Handlers.HelloWorld))
 
-	mux.Handle("/", helloWorldWithMiddleWare)
+	createWallet := middleware.AuthorizationMiddleware(http.HandlerFunc(Handlers.CreateWallet))
+
+	mux.Handle("GET /", helloWorldWithMiddleWare)
+	mux.Handle("POST /", createWallet)
 	return mux
 }
 

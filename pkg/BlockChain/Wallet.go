@@ -14,7 +14,7 @@ type Wallet struct {
 	RandomWord []string
 }
 
-func CreateWallet(userName string) *pem.Block {
+func CreateWallet(userName string) (*pem.Block, *pem.Block) {
 
 	privateKey, _ := rsa.GenerateKey(rand.Reader, 2048)
 	publicKey := &privateKey.PublicKey
@@ -23,8 +23,8 @@ func CreateWallet(userName string) *pem.Block {
 		Type: "RSA PRIVATE KEY",
 		Bytes: privateKeyBytes,
 	}
-	_ = os.MkdirAll("../../internal/wallets/" + userName + "/", 0755);
-	privatePem, _ := os.Create("../../internal/wallets/" + userName + "/Private.pem")
+	_ = os.MkdirAll("./internal/wallets/" + userName + "/", 0755);
+	privatePem, _ := os.Create("./internal/wallets/" + userName + "/Private.pem")
 
 	err := pem.Encode(privatePem, privateKeyBlock)
 
@@ -38,10 +38,10 @@ func CreateWallet(userName string) *pem.Block {
 		Type: "RSA PUBLIC KEY",
 		Bytes: publicKeyByets,
 	}	
-	publicPem, _ := os.Create("../../internal/wallets/" + userName +  "/Public.pem")
+	publicPem, _ := os.Create("./internal/wallets/" + userName +  "/Public.pem")
 	err = pem.Encode(publicPem, publicKeyBlock)
 	if err != nil {
 		log.Println("we have an error in public pem encoding");
 	}
-	return publicKeyBlock
+	return privateKeyBlock,publicKeyBlock
 }
