@@ -36,16 +36,17 @@ func CreateTrx(inputs []Input, outputs []Output, wallet string) {
 	newTrx.Inputs = inputs
 	newTrx.Outputs = outputs
 
+	// check if it has more than 1 inputs, it want to combinition the UTXO
 	if len(inputs) > 1 {
-		for _, input := range inputs {
-			senderWallet, _ := findTrxByTrxId(input.Previous_trx)
-		}
+		// for _, _= range inputs {
+		// check the UTXO's valid or not
+		// }
 	}
 }
 
-func coinCombinition(senderWallet string, geterWallet string, amount float) {
+func coinCombinition(senderWallet string, geterWallet string) {
 	if senderWallet == geterWallet {
-		return true
+
 	}
 }
 
