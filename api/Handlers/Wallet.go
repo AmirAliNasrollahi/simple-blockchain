@@ -8,6 +8,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"strings"
 )
 
 type SignUp struct {
@@ -17,6 +18,11 @@ type SignUp struct {
 type Response struct {
 	Message string      `json:"message"`
 	Value   interface{} `json:"value"`
+	Status  int         `json:"status"`
+}
+type Keyes struct {
+	Public  string `json:"public"`
+	Private string `json:"private"`
 }
 
 func HelloWorld(w http.ResponseWriter, r *http.Request) {
@@ -45,6 +51,19 @@ func CreateWallet(w http.ResponseWriter, r *http.Request) {
 	privateKey := pem.EncodeToMemory(privateKeyBlock)
 	publicKey := pem.EncodeToMemory(publicKeyBlock)
 
-	fmt.Fprintf(w, "your private key is: %v\n\nand public key is: %v", string(privateKey), string(publicKey))
+	response := &Response{}
+	response.Message = "its your keyes!"
+	response.Status = http.StatusOK
+	response.Value = Keyes{
+		Public: strings.Trim(string(publicKey), "\n"),
+		Private: strings.Trim(string(privateKey), "\n"),
+	}
 
+
+	res ,_:= json.MarshalIndent(response, " ", "\n")
+	_, err = fmt.Fprint(w, string(res))
+
+	if err != nil {
+		log.Printf("we have an error while showing response")
+	}
 }

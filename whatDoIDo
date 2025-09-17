@@ -1,0 +1,19 @@
+first -> use the concurrency in project
+second -> use the mutex & context in project
+thirth -> use interface in this project
+
+--------
+
+i emphasize -> first craete it for a miner, then create it multi miner supporter
+
+--------
+
+1- send coin(create trx)
+    1.1- calculating the fee
+2- put trx to mempool
+
+3- peek trx from mempool (check its valid or not)
+    3.1- check its UTXO valid(check double spending)
+    3.2- check before trx ...
+4- proof of work (find nounce)
+5- craete block and put it in txt file(for me txt is enogh)
