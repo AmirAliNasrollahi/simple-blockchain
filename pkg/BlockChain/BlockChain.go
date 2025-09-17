@@ -29,7 +29,7 @@ func InitBlockChain() BlockChain {
 * you cant add new trx to before Blocks
 * its amazing ...
  */
-func (BC *BlockChain) MindBlock() {
+func (BC *BlockChain) MineBlock() {
 	var block Block
 	if len(BC.Blocks) == 0 {
 		block = Block{
@@ -60,10 +60,6 @@ func (BC *BlockChain) MindBlock() {
 	BC.Blocks = append(BC.Blocks, block)
 }
 
-
-func PutTrxFromMemPool() {
-
-}
 
 
 
